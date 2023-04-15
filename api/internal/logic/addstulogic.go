@@ -25,7 +25,6 @@ func NewAddStuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddStuLogi
 }
 
 func (l *AddStuLogic) AddStu(req *types.AddStuReq) (resp *types.AddStuResp, err error) {
-	// todo: add your logic here and delete this line
 	resp = new(types.AddStuResp)
 
 	_, err = l.svcCtx.StuModel.Insert(l.ctx, &model.Student{
