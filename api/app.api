@@ -1,0 +1,59 @@
+syntax = "v1"
+
+type Student {
+	Id   int    `json:"id"`
+	Name string `json:"name"`
+	Age  int    `json:"age"`
+	City string `json:"city"`
+}
+
+type BaseResponse {
+	Code    int    `json:"code"`
+	Message string `json:"message"`
+	Uid     string `json:"uid"`
+}
+
+type AddStuReq {
+	Name string `json:"name"`
+	Age  int    `json:"age"`
+	City string `json:"city"`
+}
+
+type AddStuResp {
+	BaseResponse
+	Success bool `json:"success"`
+}
+
+type UpdateStuReq {
+	Id int `path:"id"`
+	AddStuReq
+}
+
+type UpdateStuResp {
+	AddStuResp
+}
+
+type ListStuReq {
+	City string `json:"city,optional"`
+	Name string `json:"name,optional"`
+	With string `form:"with,optional,default=and,options=and|or"`
+}
+
+type ListStuResp {
+	BaseResponse
+	List []Student `json:"list"`
+}
+
+@server (
+	prefix : /app/v1/stu
+)
+service api-api {
+	@handler AddStuHandler
+	post /add(AddStuReq) returns(AddStuResp)
+	
+	@handler UpdateStuHandler
+	post /update/:id(UpdateStuReq) returns(UpdateStuResp)
+	
+	@handler ListStuHandler
+	get /list(ListStuReq) returns(ListStuResp)
+}
