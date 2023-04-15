@@ -1,12 +1,15 @@
 Name: api-api
 Host: 127.0.0.1
 Port: 8888
+Timeout: 30000
 Log:
   Level: debug
   Encoding: plain
-
 
 DataSource: "root:123456@tcp(127.0.0.1:3306)/test?charset=utf8&parseTime=true&loc=Local"
 
 Cache:
   - Host: 127.0.0.1:6379
+
+AppRpcConf:
+  Target: localhost:8080

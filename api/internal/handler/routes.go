@@ -27,6 +27,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/list",
 				Handler: ListStuHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/list_rpc",
+				Handler: ListStuByRpcHandler(serverCtx),
+			},
 		},
 		rest.WithPrefix("/app/v1/stu"),
 	)

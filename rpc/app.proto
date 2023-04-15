@@ -1,16 +1,23 @@
 syntax = "proto3";
 
-package rpc;
-option go_package="./rpc";
+package app;
+option go_package="./appserver";
 
-message Request {
-  string ping = 1;
+message Student {
+  string name = 10;
+  string city = 20;
+  int32 age = 30;
 }
 
-message Response {
-  string pong = 1;
+message StuListReq {
+  string name = 10;
+  string city = 20;
 }
 
-service Rpc {
-  rpc Ping(Request) returns(Response);
+message StuListResp {
+  repeated Student list = 10;
+}
+
+service App {
+  rpc ListStu(StuListReq) returns(StuListResp);
 }

@@ -56,4 +56,7 @@ service api-api {
 	
 	@handler ListStuHandler
 	get /list(ListStuReq) returns(ListStuResp)
+	
+	@handler ListStuByRpcHandler
+	get /list_rpc(ListStuReq) returns(ListStuResp)
 }
