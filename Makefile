@@ -9,3 +9,12 @@ protoc:
 .PHONY: model
 model:
 	goctl model mysql ddl --database test -d "sql/model" --src "sql/*.sql" -c
+
+
+
+.PHONY: swagger
+swagger: genFile := ./swagger/app.swagger.json
+swagger:
+	goctl api plugin -plugin goctl-openapi3="openapi -filename $(genFile)" -api api/app.api -dir .
+	sed -i '' s'/^  "components": {/  "components": {\n    "securitySchemes": {"bearerAuth": {"type": "http","scheme": "bearer","bearerFormat": "JWT"}},/' ./swagger/app.swagger.json
+	sed -i '' s'/^  "components": {/  "security": [{"bearerAuth":[]}],\n  "components": {/' ./swagger/app.swagger.json

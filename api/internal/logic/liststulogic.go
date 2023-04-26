@@ -34,13 +34,13 @@ func (l *ListStuLogic) ListStu(req *types.ListStuReq) (resp *types.ListStuResp, 
 	})
 	if err != nil {
 		resp.Message = err.Error()
-		resp.List = []types.Student{}
+		resp.List = []*types.Student{}
 		return resp, nil
 	}
 	// fixme: 怎样才能不做这种类型转换呢
-	var retList []types.Student
+	retList := []*types.Student{}
 	for _, stu := range list {
-		retList = append(retList, types.Student{
+		retList = append(retList, &types.Student{
 			Name: stu.Name,
 			//  fixme: 怎样才能不做这种类型转换呢
 			Age:  int(stu.Age.Int64),

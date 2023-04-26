@@ -34,7 +34,6 @@ func NewStudentModel(conn sqlx.SqlConn, c cache.CacheConf, opts ...cache.Option)
 }
 
 func (m *customStudentModel) FindAllBy(ctx context.Context, cond string, data *Student) ([]Student, error) {
-	var ret []Student
 	var whereBuilder []string
 	// 根据传入的对象属性值，若设置了就作为过滤条件
 	util.NotBlankThen(data.Name, func(name string) {
@@ -56,6 +55,7 @@ func (m *customStudentModel) FindAllBy(ctx context.Context, cond string, data *S
 		whereConditions = " WHERE " + whereConditions
 	}
 
+	ret := []Student{}
 	sql := fmt.Sprintf("select %s from %s %s", studentRows, m.table, whereConditions)
 	logx.Infof("list all sql: " + sql)
 	if err := m.QueryRowsNoCacheCtx(ctx, &ret, sql); err != nil {

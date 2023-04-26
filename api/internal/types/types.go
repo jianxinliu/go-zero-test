@@ -42,5 +42,5 @@ type ListStuReq struct {
 
 type ListStuResp struct {
 	BaseResponse
-	List []Student `json:"list"`
+	List []*Student `json:"list"`
 }

@@ -4,6 +4,7 @@ import (
 	"app/util"
 	"context"
 	"fmt"
+	"github.com/zeromicro/go-zero/core/stores/sqlx"
 
 	"app/api/internal/svc"
 	"app/api/internal/types"
@@ -28,9 +29,10 @@ func NewUpdateStuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateS
 func (l *UpdateStuLogic) UpdateStu(req *types.UpdateStuReq) (resp *types.UpdateStuResp, err error) {
 	resp = new(types.UpdateStuResp)
 	one, err := l.svcCtx.StuModel.FindOne(l.ctx, int64(req.Id))
-	if err != nil {
+	if err != nil || err == sqlx.ErrNotFound {
 		resp.Success = false
 		resp.Message = fmt.Sprintf("student %d not exist, update exit!", req.Id)
+		return resp, nil
 	}
 
 	one.Age = util.ToNullInt(req.Age)

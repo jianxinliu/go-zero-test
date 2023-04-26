@@ -1,0 +1,281 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "",
+    "version": ""
+  },
+  "paths": {
+    "/app/v1/stu/add": {
+      "post": {
+        "operationId": "AddStuHandler",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "age",
+                  "city"
+                ],
+                "properties": {
+                  "age": {
+                    "type": "integer"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddStuResp"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "api-api"
+        ]
+      }
+    },
+    "/app/v1/stu/list": {
+      "get": {
+        "operationId": "ListStuHandler",
+        "parameters": [
+          {
+            "name": "city",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "with",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListStuResp"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "api-api"
+        ]
+      }
+    },
+    "/app/v1/stu/list_rpc": {
+      "get": {
+        "operationId": "ListStuByRpcHandler",
+        "parameters": [
+          {
+            "name": "city",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "with",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListStuResp"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "api-api"
+        ]
+      }
+    },
+    "/app/v1/stu/update/{id}": {
+      "post": {
+        "operationId": "UpdateStuHandler",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateStuResp"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "api-api"
+        ]
+      }
+    }
+  },
+  "security": [{"bearerAuth":[]}],
+  "components": {
+    "securitySchemes": {"bearerAuth": {"type": "http","scheme": "bearer","bearerFormat": "JWT"}},
+    "schemas": {
+      "AddStuResp": {
+        "allOf": [
+          {
+            "type": "object",
+            "required": [
+              "success"
+            ],
+            "properties": {
+              "success": {
+                "type": "boolean"
+              }
+            }
+          },
+          {
+            "$ref": "#/components/schemas/BaseResponse"
+          }
+        ]
+      },
+      "BaseResponse": {
+        "type": "object",
+        "required": [
+          "code",
+          "message",
+          "uid"
+        ],
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "uid": {
+            "type": "string"
+          }
+        }
+      },
+      "ListStuResp": {
+        "allOf": [
+          {
+            "type": "object",
+            "required": [
+              "list"
+            ],
+            "properties": {
+              "list": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Student"
+                }
+              }
+            }
+          },
+          {
+            "$ref": "#/components/schemas/BaseResponse"
+          }
+        ]
+      },
+      "Student": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "age",
+          "city"
+        ],
+        "properties": {
+          "age": {
+            "type": "integer"
+          },
+          "city": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdateStuResp": {
+        "allOf": [
+          {
+            "type": "object"
+          },
+          {
+            "$ref": "#/components/schemas/AddStuResp"
+          }
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "api-api"
+    }
+  ]
+}
