@@ -103,6 +103,15 @@
         "operationId": "ListStuByRpcHandler",
         "parameters": [
           {
+            "name": "with",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
             "name": "city",
             "in": "query",
             "required": false,
@@ -117,15 +126,6 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "name": "with",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "style": "form"
           }
         ],
         "responses": {
