@@ -25,6 +25,10 @@ func NewListStuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *ListStuLo
 
 func (l *ListStuLogic) ListStu(in *appserver.StuListReq) (*appserver.StuListResp, error) {
 	l.Logger.Info("list all stu by rpc.....")
+	if *in.City == "beijing" {
+		l.Logger.Infof("sss %s ps %p", *in.City+"__as", in.City)
+	}
+	l.Logger.Infof("City: %s %v", in.City, in.City)
 	return &appserver.StuListResp{
 		List: []*appserver.Student{},
 	}, nil

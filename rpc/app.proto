@@ -11,7 +11,7 @@ message Student {
 
 message StuListReq {
   string name = 10;
-  string city = 20;
+  optional string city = 20;
 }
 
 message StuListResp {
