@@ -19,6 +19,14 @@
 1. 构建 rpc 服务
 2. 使用 http 的方式调用
 
+### RPC 服务启动
+
+go-zero 的 rpc 服务启动以来 etcd, 所以需要先启动 etcd
+
+```shell
+docker run -itd -e ALLOW_NONE_AUTHENTICATION=yes --name Etcd -p 2379:2379 -p 2380:2380 bitnami/etcd
+```
+
 # 总结
 
 ## http api
@@ -37,3 +45,4 @@
 3. 在 logic 文件中写业务逻辑。只需要关注 logic 即可
 4. rpc 本身会启动一个 rpcServer, 用于提供服务。也会提供一个程序包 client 供其他调用者调用，比较容易混淆
 5. proto 生成的文件可以不用管
+
