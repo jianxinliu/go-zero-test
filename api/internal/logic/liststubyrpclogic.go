@@ -26,7 +26,7 @@ func NewListStuByRpcLogic(ctx context.Context, svcCtx *svc.ServiceContext) *List
 
 func (l *ListStuByRpcLogic) ListStuByRpc(req *types.ListStuReq) (resp *types.ListStuResp, err error) {
 	resp = new(types.ListStuResp)
-	resp.List = []*types.Student{}
+	resp.List = []types.Student{}
 
 	l.Logger.Infof("s %s ps %p", req.City, &req.City)
 
@@ -39,9 +39,9 @@ func (l *ListStuByRpcLogic) ListStuByRpc(req *types.ListStuReq) (resp *types.Lis
 		resp.Message = err.Error()
 		return resp, nil
 	}
-	var retList []*types.Student
+	var retList []types.Student
 	for _, stu := range list.List {
-		retList = append(retList, &types.Student{
+		retList = append(retList, types.Student{
 			Name: stu.Name,
 			Age:  int(stu.Age),
 			City: stu.City,
